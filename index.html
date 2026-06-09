@@ -299,18 +299,7 @@
     transform: rotate(-45deg);
   }
 
-  /* Sunday styling */
-  td.sunday-col, th.sunday-col {
-    background: #1e1a1a !important;
-    border-right: 2px solid #3e2e2e !important;
-  }
-
-  td.sunday-col input[type="checkbox"] {
-    border-color: #3e2e2e;
-    opacity: 0.4;
   
-  }
-
   /* Progress bar */
   .progress-bar-wrap {
     margin-top: 20px;
@@ -509,31 +498,22 @@ function buildTable() {
         td.className = 'check-cell';
 
         // Sunday = index 1 now (Sat=0, Sun=1, Mon=2...)
-        const isSunday = (w === 1);
-        if (isSunday) {
-          td.classList.add('sunday-col');
-          const cb = document.createElement('input');
-          cb.type = 'checkbox';
-          cb.disabled = true;
-          td.appendChild(cb);
-        } else {
-          const key = storageKey(currentMonth, d, w, s);
-          const checked = localStorage.getItem(key) === '1';
-          const cb = document.createElement('input');
-          cb.type = 'checkbox';
-          cb.checked = checked;
-          cb.addEventListener('change', function() {
-            localStorage.setItem(key, this.checked ? '1' : '0');
-            updateProgress();
-          });
-          td.appendChild(cb);
-        }
-        tr.appendChild(td);
-      }
-
-      body.appendChild(tr);
-    }
-  }
+       
+        const key = storageKey(currentMonth, d, w, s);
+const checked = localStorage.getItem(key) === '1';
+const cb = document.createElement('input');
+cb.type = 'checkbox';
+cb.checked = checked;
+cb.addEventListener('change', function() {
+  localStorage.setItem(key, this.checked ? '1' : '0');
+  updateProgress();
+});
+td.appendChild(cb);
+tr.appendChild(td);
+}
+body.appendChild(tr);
+}
+}
 
   updateProgress();
 }
