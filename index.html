@@ -15,9 +15,6 @@
     --accent3: #f060c8;
     --text: #e8e8f0;
     --muted: #6b6b80;
-    --checked: #c8f060;
-    --row1: #1e1e2a;
-    --row2: #1a1a24;
   }
  
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -92,34 +89,28 @@
  
   table {
     border-collapse: collapse;
-    min-width: 100%;
+    width: 100%;
   }
  
-  /* Day number header row */
+  /* Header */
   thead tr th {
     background: var(--surface);
     font-family: 'Syne', sans-serif;
     font-weight: 700;
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     color: var(--muted);
-    padding: 10px 0;
+    padding: 12px 0;
     text-align: center;
     border-right: 1px solid var(--border);
     border-bottom: 2px solid var(--accent);
-    min-width: 38px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     position: sticky;
     top: 0;
     z-index: 10;
   }
  
-  thead tr th.day-num.today {
-    color: var(--accent);
-    background: #1e261a;
-  }
- 
   thead tr th:first-child {
-    min-width: 160px;
+    min-width: 140px;
     text-align: left;
     padding-left: 14px;
     position: sticky;
@@ -128,7 +119,17 @@
     background: var(--surface);
   }
  
-  /* Day of week group */
+  .week-th {
+    min-width: 80px;
+    width: 120px;
+  }
+ 
+  .week-th-1 { color: #c8f060 !important; border-left: 2px solid #c8f060 !important; border-right: 2px solid #c8f060 !important; }
+  .week-th-2 { color: #60c8f0 !important; border-left: 2px solid #60c8f0 !important; border-right: 2px solid #60c8f0 !important; }
+  .week-th-3 { color: #f060c8 !important; border-left: 2px solid #f060c8 !important; border-right: 2px solid #f060c8 !important; }
+  .week-th-4 { color: #f0c860 !important; border-left: 2px solid #f0c860 !important; border-right: 2px solid #f0c860 !important; }
+ 
+  /* Day label */
   .day-label-cell {
     position: sticky;
     left: 0;
@@ -137,6 +138,7 @@
     border-right: 2px solid var(--accent);
     padding: 0;
     vertical-align: middle;
+    min-width: 140px;
   }
  
   .day-label-inner {
@@ -159,21 +161,16 @@
   .day-abbr {
     font-size: 0.65rem;
     color: var(--muted);
-    font-weight: 400;
   }
  
-  /* Sub-row (subject row) */
+  /* Subject rows */
   tbody tr {
     border-bottom: 1px solid var(--border);
     transition: background 0.15s;
   }
  
-  tbody tr:last-child {
-    border-bottom: 2px solid var(--border);
-  }
- 
   tbody tr.sub-row-last {
-    border-bottom: 2px solid var(--border);
+    border-bottom: 3px solid var(--border);
   }
  
   tbody tr:hover td:not(.day-label-cell) {
@@ -186,9 +183,35 @@
     z-index: 4;
     padding: 0;
     border-right: 1px solid var(--border);
-    background: var(--row1);
-    min-width: 160px;
+    min-width: 140px;
   }
+ 
+  tr[data-sub="0"] .subject-label-cell { background: #1b1b25; }
+  tr[data-sub="1"] .subject-label-cell { background: #1d1d28; }
+  tr[data-sub="2"] .subject-label-cell { background: #1a1a24; }
+  tr[data-sub="3"] .subject-label-cell { background: #1c1c27; }
+ 
+  .subject-label-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+ 
+  .dot {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+ 
+  tr[data-sub="0"] .dot { background: var(--accent); }
+  tr[data-sub="1"] .dot { background: var(--accent2); }
+  tr[data-sub="2"] .dot { background: var(--accent3); }
+  tr[data-sub="3"] .dot { background: #f0c860; }
  
   .subject-label-cell input[type="text"] {
     width: 100%;
@@ -207,70 +230,27 @@
     opacity: 0.6;
   }
  
-  .subject-label-cell .dot {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    pointer-events: none;
-  }
- 
-  .subject-label-cell {
-    position: sticky;
-    left: 0;
-    z-index: 4;
-    padding: 0;
-    border-right: 1px solid var(--border);
-  }
- 
-  .subject-label-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
- 
-  /* Colors for 4 sub-rows */
-  tr[data-sub="0"] .subject-label-cell { background: #1b1b25; }
-  tr[data-sub="1"] .subject-label-cell { background: #1d1d28; }
-  tr[data-sub="2"] .subject-label-cell { background: #1a1a24; }
-  tr[data-sub="3"] .subject-label-cell { background: #1c1c27; }
- 
-  tr[data-sub="0"] .dot { background: var(--accent); }
-  tr[data-sub="1"] .dot { background: var(--accent2); }
-  tr[data-sub="2"] .dot { background: var(--accent3); }
-  tr[data-sub="3"] .dot { background: #f0c860; }
- 
   /* Checkbox cells */
   td.check-cell {
     text-align: center;
     vertical-align: middle;
-    padding: 6px 2px;
+    padding: 8px 4px;
     border-right: 1px solid var(--border);
-    min-width: 38px;
+    width: 120px;
   }
  
-  td.check-cell.rest-day {
-    background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 4px,
-      #1e1e2a 4px,
-      #1e1e2a 8px
-    );
-  }
- 
-  td.check-cell.rest-day input { display: none; }
+  td.week-1-cell { border-left: 2px solid #c8f06040; border-right: 2px solid #c8f06040; }
+  td.week-2-cell { border-left: 2px solid #60c8f040; border-right: 2px solid #60c8f040; }
+  td.week-3-cell { border-left: 2px solid #f060c840; border-right: 2px solid #f060c840; }
+  td.week-4-cell { border-left: 2px solid #f0c86040; border-right: 2px solid #f0c86040; }
  
   input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border: 1.5px solid var(--border);
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.15s;
     position: relative;
@@ -290,28 +270,16 @@
   input[type="checkbox"]:checked::after {
     content: '';
     position: absolute;
-    left: 3px;
-    top: 1px;
-    width: 8px;
-    height: 5px;
+    left: 4px;
+    top: 2px;
+    width: 9px;
+    height: 6px;
     border-left: 2px solid #0f0f13;
     border-bottom: 2px solid #0f0f13;
     transform: rotate(-45deg);
   }
  
-  /* Sunday styling */
-  td.sunday-col, th.sunday-col {
-    background: #1e1a1a !important;
-    border-right: 2px solid #3e2e2e !important;
-  }
- 
-  td.sunday-col input[type="checkbox"] {
-    border-color: #3e2e2e;
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
- 
-  /* Progress bar */
+  /* Progress */
   .progress-bar-wrap {
     margin-top: 20px;
     display: flex;
@@ -351,7 +319,6 @@
     text-align: right;
   }
  
-  /* Reset button */
   .actions {
     margin-top: 16px;
     display: flex;
@@ -371,25 +338,8 @@
     transition: all 0.2s;
   }
  
-  .btn:hover {
-    border-color: var(--accent3);
-    color: var(--accent3);
-  }
- 
-  .btn.danger:hover {
-    border-color: #f06060;
-    color: #f06060;
-  }
- 
-  /* Today highlight */
-  th.today-col {
-    color: var(--accent) !important;
-    background: #1a2218 !important;
-  }
- 
-  td.today-col {
-    background: rgba(200, 240, 96, 0.04);
-  }
+  .btn:hover { border-color: var(--accent3); color: var(--accent3); }
+  .btn.danger:hover { border-color: #f06060; color: #f06060; }
 </style>
 </head>
 <body>
@@ -420,7 +370,6 @@
 </div>
  
 <div class="actions">
-  <button class="btn" onclick="checkAll()">CHECK ALL TODAY</button>
   <button class="btn danger" onclick="resetMonth()">RESET MONTH</button>
 </div>
  
@@ -428,12 +377,14 @@
 const DAYS = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
 const DAYS_SHORT = ['SAT','SUN','MON','TUE','WED','THU','FRI'];
 const MONTHS = ['june','july','august'];
-const MONTH_DAYS = [30, 31, 31]; // June=30, July=31, Aug=31
+const WEEKS = ['WEEK 1','WEEK 2','WEEK 3','WEEK 4'];
+const WEEK_COLORS = ['#c8f060','#60c8f0','#f060c8','#f0c860'];
+const WEEK_CLASSES = ['week-1-cell','week-2-cell','week-3-cell','week-4-cell'];
  
 let currentMonth = 0;
  
-function storageKey(month, day, dayIdx, subIdx) {
-  return `schedule_${month}_d${day}_w${dayIdx}_s${subIdx}`;
+function storageKey(month, weekIdx, dayIdx, subIdx) {
+  return `v2_schedule_${month}_wk${weekIdx}_d${dayIdx}_s${subIdx}`;
 }
  
 function labelKey(month, dayIdx, subIdx) {
@@ -448,44 +399,45 @@ function setMonth(m) {
  
 function buildTable() {
   const month = MONTHS[currentMonth];
-  const numDays = MONTH_DAYS[currentMonth];
   const head = document.getElementById('tableHead');
   const body = document.getElementById('tableBody');
   head.innerHTML = '';
   body.innerHTML = '';
  
-  // Header row: day numbers
+  // Header row: DAYS | SUBJECTS | WEEK 1 | WEEK 2 | WEEK 3 | WEEK 4
   const headRow = document.createElement('tr');
-  const cornerTh = document.createElement('th');
-  cornerTh.textContent = 'SUBJECT';
-  cornerTh.style.textAlign = 'left';
-  headRow.appendChild(cornerTh);
  
-  for (let d = 1; d <= numDays; d++) {
+  const daysTh = document.createElement('th');
+  daysTh.textContent = 'DAYS';
+  headRow.appendChild(daysTh);
+ 
+  const subjectsTh = document.createElement('th');
+  subjectsTh.textContent = 'SUBJECTS';
+  headRow.appendChild(subjectsTh);
+ 
+  WEEKS.forEach((wk, i) => {
     const th = document.createElement('th');
-    th.textContent = d;
-    th.className = 'day-num';
-    // Sunday = every 7th day starting from offset based on month start
-    // Just mark column visually; actual rest day logic per row
+    th.textContent = wk;
+    th.className = `week-th week-th-${i+1}`;
     headRow.appendChild(th);
-  }
+  });
   head.appendChild(headRow);
  
-  // Body: 7 days × 4 sub-rows each
-  for (let w = 0; w < 7; w++) {
+  // Body: 7 days × 4 sub-rows, each sub-row has 4 week checkboxes
+  for (let d = 0; d < 7; d++) {
     for (let s = 0; s < 4; s++) {
       const tr = document.createElement('tr');
       tr.dataset.sub = s;
       if (s === 3) tr.classList.add('sub-row-last');
  
-      // Left cell: day label (only first sub-row) OR subject label
+      // Day label cell (spans 4 sub-rows)
       if (s === 0) {
         const td = document.createElement('td');
         td.className = 'day-label-cell';
         td.rowSpan = 4;
         td.innerHTML = `<div class="day-label-inner">
-          <span class="day-name">${DAYS[w]}</span>
-          <span class="day-abbr">${DAYS_SHORT[w]}</span>
+          <span class="day-name">${DAYS[d]}</span>
+          <span class="day-abbr">${DAYS_SHORT[d]}</span>
         </div>`;
         tr.appendChild(td);
       }
@@ -493,26 +445,24 @@ function buildTable() {
       // Subject label cell
       const labelTd = document.createElement('td');
       labelTd.className = 'subject-label-cell';
-      const savedLabel = localStorage.getItem(labelKey(currentMonth, w, s)) || '';
-      const colors = ['var(--accent)','var(--accent2)','var(--accent3)','#f0c860'];
+      const savedLabel = localStorage.getItem(labelKey(currentMonth, d, s)) || '';
       labelTd.innerHTML = `<div class="subject-label-wrap">
-        <span class="dot" style="background:${colors[s]}"></span>
+        <span class="dot"></span>
         <input type="text" placeholder="Subject ${s+1}..." value="${savedLabel}"
-          onchange="saveLabel(${currentMonth},${w},${s},this.value)"
-          oninput="saveLabel(${currentMonth},${w},${s},this.value)">
+          oninput="saveLabel(${currentMonth},${d},${s},this.value)">
       </div>`;
       tr.appendChild(labelTd);
  
-      // Checkbox cells for each day
-      for (let d = 1; d <= numDays; d++) {
+      // 4 week checkbox cells
+      for (let w = 0; w < 4; w++) {
         const td = document.createElement('td');
-        td.className = 'check-cell';
+        td.className = `check-cell ${WEEK_CLASSES[w]}`;
  
-        const key = storageKey(currentMonth, d, w, s);
-        const checked = localStorage.getItem(key) === '1';
+        const key = storageKey(currentMonth, w, d, s);
+        const isChecked = localStorage.getItem(key) === '1';
         const cb = document.createElement('input');
         cb.type = 'checkbox';
-        cb.checked = checked;
+        cb.checked = isChecked;
         cb.addEventListener('change', function() {
           localStorage.setItem(key, this.checked ? '1' : '0');
           updateProgress();
@@ -533,7 +483,7 @@ function saveLabel(month, dayIdx, subIdx, value) {
 }
  
 function updateProgress() {
-  const allCheckboxes = document.querySelectorAll('#tableBody input[type="checkbox"]:not(:disabled)');
+  const allCheckboxes = document.querySelectorAll('#tableBody input[type="checkbox"]');
   const total = allCheckboxes.length;
   let checked = 0;
   allCheckboxes.forEach(cb => { if (cb.checked) checked++; });
@@ -542,25 +492,12 @@ function updateProgress() {
   document.getElementById('progressPct').textContent = pct + '%';
 }
  
-function checkAll() {
-  const today = new Date().getDate();
-  const numDays = MONTH_DAYS[currentMonth];
-  if (today < 1 || today > numDays) return;
-  for (let w = 0; w < 6; w++) {
-    for (let s = 0; s < 4; s++) {
-      localStorage.setItem(storageKey(currentMonth, today, w, s), '1');
-    }
-  }
-  buildTable();
-}
- 
 function resetMonth() {
   if (!confirm('Reset all checkboxes for this month?')) return;
-  const numDays = MONTH_DAYS[currentMonth];
-  for (let w = 0; w < 7; w++) {
-    for (let s = 0; s < 4; s++) {
-      for (let d = 1; d <= numDays; d++) {
-        localStorage.removeItem(storageKey(currentMonth, d, w, s));
+  for (let w = 0; w < 4; w++) {
+    for (let d = 0; d < 7; d++) {
+      for (let s = 0; s < 4; s++) {
+        localStorage.removeItem(storageKey(currentMonth, w, d, s));
       }
     }
   }
